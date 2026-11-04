@@ -54,24 +54,24 @@ namespace Lab11_CRUD_StoredProcedure
         {
             try
             {
-                SinhVienDTO sv = new SinhVienDTO
+                SinhVienDTO dto = new SinhVienDTO
                 {
                     MaSV = txtMaSV.Text.Trim(),
                     HoTen = txtHoTen.Text.Trim(),
-                    NgaySinh = dtpNgaySinh.Value,
+                    NgaySinh = dtpNgaySinh.Value.Date,
                     GioiTinh = chkGioiTinh.Checked,
                     MaKhoa = txtMaKhoa.Text.Trim(),
                     DiemTB = float.Parse(string.IsNullOrEmpty(txtDiemTB.Text) ? "0" : txtDiemTB.Text),
                     Email = txtEmail.Text.Trim()
                 };
 
-                bus.Add(sv); // Gọi phương thức Add đã tích hợp kiểm tra nghiệp vụ chuẩn
-                MessageBox.Show("Thêm sinh viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                bus.Add(dto);
                 LoadDataToGrid();
+                MessageBox.Show("Thêm thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi nghiệp vụ: " + ex.Message, "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -83,7 +83,7 @@ namespace Lab11_CRUD_StoredProcedure
                 {
                     MaSV = txtMaSV.Text.Trim(),
                     HoTen = txtHoTen.Text.Trim(),
-                    NgaySinh = dtpNgaySinh.Value,
+                    NgaySinh = dtpNgaySinh.Value.Date,
                     GioiTinh = chkGioiTinh.Checked,
                     MaKhoa = txtMaKhoa.Text.Trim(),
                     DiemTB = float.Parse(string.IsNullOrEmpty(txtDiemTB.Text) ? "0" : txtDiemTB.Text),
@@ -91,12 +91,12 @@ namespace Lab11_CRUD_StoredProcedure
                 };
 
                 bus.SuaSinhVien(sv);
-                MessageBox.Show("Cập nhật thông tin sinh viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadDataToGrid();
+                MessageBox.Show("Cập nhật thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -110,13 +110,13 @@ namespace Lab11_CRUD_StoredProcedure
                 if (dr == DialogResult.Yes)
                 {
                     bus.XoaSinhVien(maSV);
-                    MessageBox.Show("Xóa sinh viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadDataToGrid();
+                    MessageBox.Show("Xóa thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
