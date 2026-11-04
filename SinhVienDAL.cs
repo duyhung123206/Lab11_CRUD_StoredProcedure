@@ -42,12 +42,8 @@ namespace Lab11_CRUD_StoredProcedure.DAL
         private void GhiFile(DataTable dt)
         {
             DataSet ds = new DataSet();
-            dt.TableName = "SinhVien";
-            if (ds.Tables.Contains("SinhVien"))
-            {
-                ds.Tables.Remove("SinhVien");
-            }
-            ds.Tables.Add(dt);
+            // Sử dụng dt.Copy() để tạo bản sao độc lập, tránh xung đột DataSet
+            ds.Tables.Add(dt.Copy());
             ds.WriteXml(filePath, XmlWriteMode.WriteSchema);
         }
 
@@ -64,6 +60,57 @@ namespace Lab11_CRUD_StoredProcedure.DAL
             }
 
             dt.Rows.Add(sv.MaSV, sv.HoTen, sv.NgaySinh, sv.GioiTinh, sv.MaKhoa, sv.DiemTB, sv.Email);
+            GhiFile(dt);
+        }
+
+        public void SuaSinhVien(SinhVienDTO sv)
+        {
+            DataTable dt = LayDanhSach();
+            bool found = false;
+
+            foreach (DataRow row in dt.Rows)
+            {
+                if (row["MaSV"].ToString() == sv.MaSV)
+                {
+                    row["HoTen"] = sv.HoTen;
+                    row["NgaySinh"] = sv.NgaySinh;
+                    row["GioiTinh"] = sv.GioiTinh;
+                    row["MaKhoa"] = sv.MaKhoa;
+                    row["DiemTB"] = sv.DiemTB;
+                    row["Email"] = sv.Email;
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found)
+            {
+                throw new Exception("Không tìm thấy mã sinh viên cần sửa!");
+            }
+
+            GhiFile(dt);
+        }
+
+        public void XoaSinhVien(string maSV)
+        {
+            DataTable dt = LayDanhSach();
+            DataRow rowToDelete = null;
+
+            foreach (DataRow row in dt.Rows)
+            {
+                if (row["MaSV"].ToString() == maSV)
+                {
+                    rowToDelete = row;
+                    break;
+                }
+            }
+
+            if (rowToDelete == null)
+            {
+                throw new Exception("Không tìm thấy sinh viên cần xóa!");
+            }
+
+            dt.Rows.Remove(rowToDelete);
             GhiFile(dt);
         }
     }

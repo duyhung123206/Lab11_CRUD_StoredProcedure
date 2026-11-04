@@ -42,6 +42,9 @@
             this.dtpNgaySinh = new System.Windows.Forms.DateTimePicker();
             this.label6 = new System.Windows.Forms.Label();
             this.chkGioiTinh = new System.Windows.Forms.CheckBox();
+            this.btnThem = new System.Windows.Forms.Button();
+            this.btnSua = new System.Windows.Forms.Button();
+            this.btnXoa = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -162,17 +165,50 @@
             this.chkGioiTinh.AutoSize = true;
             this.chkGioiTinh.Location = new System.Drawing.Point(111, 204);
             this.chkGioiTinh.Name = "chkGioiTinh";
-            this.chkGioiTinh.Size = new System.Drawing.Size(95, 20);
+            this.chkGioiTinh.Size = new System.Drawing.Size(105, 20);
             this.chkGioiTinh.TabIndex = 13;
-            this.chkGioiTinh.Text = "checkBox1";
+            this.chkGioiTinh.Text = "Giới tính nam";
             this.chkGioiTinh.UseVisualStyleBackColor = true;
             this.chkGioiTinh.CheckedChanged += new System.EventHandler(this.Form1_Load);
+            // 
+            // btnThem
+            // 
+            this.btnThem.Location = new System.Drawing.Point(274, 200);
+            this.btnThem.Name = "btnThem";
+            this.btnThem.Size = new System.Drawing.Size(75, 23);
+            this.btnThem.TabIndex = 14;
+            this.btnThem.Text = "Thêm";
+            this.btnThem.UseVisualStyleBackColor = true;
+            this.btnThem.Click += new System.EventHandler(this.btnThem_Click);
+            // 
+            // btnSua
+            // 
+            this.btnSua.Location = new System.Drawing.Point(415, 200);
+            this.btnSua.Name = "btnSua";
+            this.btnSua.Size = new System.Drawing.Size(75, 23);
+            this.btnSua.TabIndex = 15;
+            this.btnSua.Text = "Sửa";
+            this.btnSua.UseVisualStyleBackColor = true;
+            this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
+            // 
+            // btnXoa
+            // 
+            this.btnXoa.Location = new System.Drawing.Point(550, 200);
+            this.btnXoa.Name = "btnXoa";
+            this.btnXoa.Size = new System.Drawing.Size(75, 23);
+            this.btnXoa.TabIndex = 16;
+            this.btnXoa.Text = "Xóa";
+            this.btnXoa.UseVisualStyleBackColor = true;
+            this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 563);
+            this.Controls.Add(this.btnXoa);
+            this.Controls.Add(this.btnSua);
+            this.Controls.Add(this.btnThem);
             this.Controls.Add(this.chkGioiTinh);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.dtpNgaySinh);
@@ -212,6 +248,9 @@
         private System.Windows.Forms.DateTimePicker dtpNgaySinh;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox chkGioiTinh;
+        private System.Windows.Forms.Button btnThem;
+        private System.Windows.Forms.Button btnSua;
+        private System.Windows.Forms.Button btnXoa;
     }
 }
 

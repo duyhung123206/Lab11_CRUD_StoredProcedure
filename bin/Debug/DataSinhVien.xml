@@ -39,4 +39,13 @@
     <DiemTB>8</DiemTB>
     <Email>hieu@gmail.com</Email>
   </SinhVien>
+  <SinhVien>
+    <MaSV>24001111</MaSV>
+    <HoTen>Nguyễn Văn A</HoTen>
+    <NgaySinh>2026-11-04T19:59:51.758526+07:00</NgaySinh>
+    <GioiTinh>true</GioiTinh>
+    <MaKhoa>CNTT</MaKhoa>
+    <DiemTB>8</DiemTB>
+    <Email>A@gmail.com</Email>
+  </SinhVien>
 </NewDataSet>
