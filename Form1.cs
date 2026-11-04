@@ -65,16 +65,13 @@ namespace Lab11_CRUD_StoredProcedure
                     Email = txtEmail.Text.Trim()
                 };
 
-                int result = bus.Insert(sv);
-                if (result > 0)
-                {
-                    MessageBox.Show("Thêm sinh viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    LoadDataToGrid();
-                }
+                bus.Add(sv); // Gọi phương thức Add đã tích hợp kiểm tra nghiệp vụ chuẩn
+                MessageBox.Show("Thêm sinh viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                LoadDataToGrid();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Lỗi nghiệp vụ: " + ex.Message, "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 

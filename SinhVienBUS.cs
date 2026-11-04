@@ -7,43 +7,56 @@ namespace Lab11_CRUD_StoredProcedure.BUS
 {
     public class SinhVienBUS
     {
-        private SinhVienDAL dal = new SinhVienDAL();
+        private SinhVienDAL _dal = new SinhVienDAL();
 
         public DataTable LayDanhSach()
         {
-            return dal.LayDanhSach();
+            return _dal.LayDanhSach();
         }
 
-        public int Insert(SinhVienDTO dto)
+        // Phương thức Add kiểm tra nghiệp vụ chuẩn theo đề bài Lab
+        public void Add(SinhVienDTO dto)
         {
             if (string.IsNullOrWhiteSpace(dto.MaSV))
             {
-                throw new Exception("Mã sinh viên không được để trống!");
+                throw new ArgumentException("Mã sinh viên không được rỗng."); 
             }
             if (string.IsNullOrWhiteSpace(dto.HoTen))
             {
-                throw new Exception("Họ tên sinh viên không được để trống!");
+                throw new ArgumentException("Họ tên không được rỗng."); 
+            }
+            if (dto.NgaySinh > DateTime.Today.AddYears(-15))
+            {
+                throw new ArgumentException("Tuổi sinh viên chưa hợp lệ."); 
+            }
+            if (dto.DiemTB < 0 || dto.DiemTB > 10)
+            {
+                throw new ArgumentException("Điểm phải thuộc [0,10]."); 
             }
 
-            return dal.Insert(dto);
+            _dal.Insert(dto); 
         }
 
         public void SuaSinhVien(SinhVienDTO sv)
         {
             if (string.IsNullOrWhiteSpace(sv.MaSV))
             {
-                throw new Exception("Mã sinh viên không được để trống!");
+                throw new ArgumentException("Mã sinh viên không được rỗng.");
             }
-            dal.SuaSinhVien(sv);
+            if (sv.DiemTB < 0 || sv.DiemTB > 10)
+            {
+                throw new ArgumentException("Điểm phải thuộc [0,10]."); 
+            }
+            _dal.SuaSinhVien(sv);
         }
 
         public void XoaSinhVien(string maSV)
         {
             if (string.IsNullOrWhiteSpace(maSV))
             {
-                throw new Exception("Vui lòng chọn sinh viên cần xóa!");
+                throw new ArgumentException("Vui lòng chọn sinh viên cần xóa!");
             }
-            dal.XoaSinhVien(maSV);
+            _dal.XoaSinhVien(maSV);
         }
     }
 }
