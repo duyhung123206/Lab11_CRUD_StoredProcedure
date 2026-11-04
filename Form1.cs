@@ -17,6 +17,7 @@ namespace Lab11_CRUD_StoredProcedure
         private void Form1_Load(object sender, EventArgs e)
         {
             LoadDataToGrid();
+            LoadKhoaComboBox();
         }
 
         private void LoadDataToGrid()
@@ -29,6 +30,18 @@ namespace Lab11_CRUD_StoredProcedure
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi tải dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void LoadKhoaComboBox()
+        {
+            // Nạp dữ liệu mẫu cho ComboBox tìm kiếm khoa nếu có
+            if (cboTimKiemKhoa != null)
+            {
+                cboTimKiemKhoa.Items.Clear();
+                cboTimKiemKhoa.Items.Add(""); // Tất cả
+                cboTimKiemKhoa.Items.Add("CNTT");
+                cboTimKiemKhoa.Items.Add("KT");
             }
         }
 
@@ -65,13 +78,17 @@ namespace Lab11_CRUD_StoredProcedure
                     Email = txtEmail.Text.Trim()
                 };
 
-                bus.Add(dto);
-                LoadDataToGrid();
-                MessageBox.Show("Thêm thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                bus.Add(dto); 
+                LoadDataToGrid(); 
+                MessageBox.Show("Thêm thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information); 
+            }
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show(ex.Message, "Cảnh báo nghiệp vụ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error); 
             }
         }
 
@@ -117,6 +134,22 @@ namespace Lab11_CRUD_StoredProcedure
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string keyword = txtTimKiem != null ? txtTimKiem.Text.Trim() : "";
+                string maKhoa = cboTimKiemKhoa != null && cboTimKiemKhoa.SelectedItem != null ? cboTimKiemKhoa.SelectedItem.ToString() : "";
+
+                dataGridView1.DataSource = bus.TimKiem(keyword, maKhoa); 
+                dataGridView1.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi tìm kiếm: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
