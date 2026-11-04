@@ -14,18 +14,18 @@ namespace Lab11_CRUD_StoredProcedure.BUS
             return dal.LayDanhSach();
         }
 
-        public void ThemSinhVien(SinhVienDTO sv)
+        public int Insert(SinhVienDTO dto)
         {
-            if (string.IsNullOrWhiteSpace(sv.MaSV))
+            if (string.IsNullOrWhiteSpace(dto.MaSV))
             {
                 throw new Exception("Mã sinh viên không được để trống!");
             }
-            if (string.IsNullOrWhiteSpace(sv.HoTen))
+            if (string.IsNullOrWhiteSpace(dto.HoTen))
             {
                 throw new Exception("Họ tên sinh viên không được để trống!");
             }
 
-            dal.ThemSinhVien(sv);
+            return dal.Insert(dto);
         }
 
         public void SuaSinhVien(SinhVienDTO sv)

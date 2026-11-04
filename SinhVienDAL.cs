@@ -31,7 +31,6 @@ namespace Lab11_CRUD_StoredProcedure.DAL
             }
             else
             {
-                // Dữ liệu mẫu khởi tạo lần đầu tiên
                 dt.Rows.Add("24001296", "Nguyễn Duy Hưng", new DateTime(2004, 1, 1), true, "CNTT", 8.5, "hung@gmail.com");
                 dt.Rows.Add("24001297", "Nguyễn Văn Hiếu", new DateTime(2004, 5, 12), true, "CNTT", 8.0, "hieu@gmail.com");
                 GhiFile(dt);
@@ -42,25 +41,26 @@ namespace Lab11_CRUD_StoredProcedure.DAL
         private void GhiFile(DataTable dt)
         {
             DataSet ds = new DataSet();
-            // Sử dụng dt.Copy() để tạo bản sao độc lập, tránh xung đột DataSet
             ds.Tables.Add(dt.Copy());
             ds.WriteXml(filePath, XmlWriteMode.WriteSchema);
         }
 
-        public void ThemSinhVien(SinhVienDTO sv)
+        // Phương thức Insert chuẩn theo yêu cầu tài liệu Lab
+        public int Insert(SinhVienDTO dto)
         {
             DataTable dt = LayDanhSach();
 
             foreach (DataRow row in dt.Rows)
             {
-                if (row["MaSV"].ToString() == sv.MaSV)
+                if (row["MaSV"].ToString() == dto.MaSV)
                 {
                     throw new Exception("Mã sinh viên đã tồn tại trong hệ thống!");
                 }
             }
 
-            dt.Rows.Add(sv.MaSV, sv.HoTen, sv.NgaySinh, sv.GioiTinh, sv.MaKhoa, sv.DiemTB, sv.Email);
+            dt.Rows.Add(dto.MaSV, dto.HoTen, dto.NgaySinh, dto.GioiTinh, dto.MaKhoa, dto.DiemTB, dto.Email);
             GhiFile(dt);
+            return 1; // Trả về số dòng ảnh hưởng (1 dòng thành công)
         }
 
         public void SuaSinhVien(SinhVienDTO sv)

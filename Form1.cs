@@ -61,13 +61,16 @@ namespace Lab11_CRUD_StoredProcedure
                     NgaySinh = dtpNgaySinh.Value,
                     GioiTinh = chkGioiTinh.Checked,
                     MaKhoa = txtMaKhoa.Text.Trim(),
-                    DiemTB = float.Parse(txtDiemTB.Text),
+                    DiemTB = float.Parse(string.IsNullOrEmpty(txtDiemTB.Text) ? "0" : txtDiemTB.Text),
                     Email = txtEmail.Text.Trim()
                 };
 
-                bus.ThemSinhVien(sv);
-                MessageBox.Show("Thêm sinh viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LoadDataToGrid();
+                int result = bus.Insert(sv);
+                if (result > 0)
+                {
+                    MessageBox.Show("Thêm sinh viên thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadDataToGrid();
+                }
             }
             catch (Exception ex)
             {
@@ -86,7 +89,7 @@ namespace Lab11_CRUD_StoredProcedure
                     NgaySinh = dtpNgaySinh.Value,
                     GioiTinh = chkGioiTinh.Checked,
                     MaKhoa = txtMaKhoa.Text.Trim(),
-                    DiemTB = float.Parse(txtDiemTB.Text),
+                    DiemTB = float.Parse(string.IsNullOrEmpty(txtDiemTB.Text) ? "0" : txtDiemTB.Text),
                     Email = txtEmail.Text.Trim()
                 };
 
